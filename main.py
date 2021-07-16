@@ -21,8 +21,11 @@ class Blackboard():
 
         self.drawing = set([])
 
+        self.logo = pygame.image.load('logo.png')
+
         Blackboard.gameWindow = pygame.display.set_mode((self.width, self.height), RESIZABLE)
         Blackboard.windowName = pygame.display.set_caption("Blackboard")
+        Blackboard.icon = pygame.display.set_icon(self.logo)
 
     def draw(self, color, pos):
         pygame.draw.circle(self.gameWindow, color, pos, 3)
