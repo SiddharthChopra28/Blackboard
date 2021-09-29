@@ -1,6 +1,8 @@
 import pygame
 import math
 import sys
+import os
+
 
 GREY = (44, 41, 40)
 YELLOW = (223, 168, 33)
@@ -9,6 +11,12 @@ BLACK = (0, 0, 0)
 LIGHT_GREY = (230,239,201)
 RED = (255, 0, 0)
 WHITE = (255, 255, 255)
+
+
+def resource_path(relative_path):
+    base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(base_path, relative_path)
+
 
 
 class Blackboard():
@@ -31,7 +39,7 @@ class Blackboard():
         self.size = 3
         self.drawing = dict.fromkeys([])
 
-        self.logo = pygame.image.load('logo.ico')
+        self.logo = pygame.image.load(resource_path('logo.ico'))
 
         self.ctrl_pressed = True
         self.letter_key = None
@@ -87,13 +95,13 @@ class Blackboard():
 
         self.help = False
 
-        self.ubuntu = pygame.font.Font('Ubuntu-Light.ttf', 14) 
+        self.ubuntu = pygame.font.Font(resource_path('Ubuntu-Light.ttf'), 14) 
 
-        self.chalk = pygame.font.Font('SqueakyChalkSound-ZG8.ttf', 100) 
+        self.chalk = pygame.font.Font(resource_path('SqueakyChalkSound-ZG8.ttf'), 100) 
 
-        self.marker = pygame.font.Font('SmoothMarker-45d6.ttf', 14) 
+        self.marker = pygame.font.Font(resource_path('SmoothMarker-45d6.ttf'), 14) 
 
-        self.firaCode = pygame.font.Font('FiraCode-VariableFont_wght.ttf', 14) 
+        self.firaCode = pygame.font.Font(resource_path('FiraCode-VariableFont_wght.ttf'), 14) 
 
         Blackboard.gameWindow = pygame.display.set_mode((self.width, self.height), pygame.RESIZABLE)
         Blackboard.windowName = pygame.display.set_caption("Blackboard")
@@ -698,12 +706,12 @@ class Blackboard():
         left_margin = size[0]//10
         right_margin = size[0]//4+45
 
-        self.chalk = pygame.font.Font('SqueakyChalkSound-ZG8.ttf', size[1]//9) 
-        self.firaCode = pygame.font.Font('FiraCode-VariableFont_wght.ttf', size[1]//18) 
-        self.firaCodeLarger = pygame.font.Font('FiraCode-VariableFont_wght.ttf', size[1]//13) 
-        self.marker = pygame.font.Font('SmoothMarker-45d6.ttf', size[1]//13) 
+        self.chalk = pygame.font.Font(resource_path('SqueakyChalkSound-ZG8.ttf'), size[1]//9) 
+        self.firaCode = pygame.font.Font(resource_path('FiraCode-VariableFont_wght.ttf'), size[1]//18) 
+        self.firaCodeLarger = pygame.font.Font(resource_path('FiraCode-VariableFont_wght.ttf'), size[1]//13) 
+        self.marker = pygame.font.Font(resource_path('SmoothMarker-45d6.ttf'), size[1]//13) 
 
-        self.back = pygame.image.load('arrow.png')
+        self.back = pygame.image.load(resource_path('arrow.png'))
 
         heading = self.chalk.render('Controls', True, YELLOW)
         
@@ -793,6 +801,9 @@ class Blackboard():
 
 
     def run(self):
-        self.mainBoard()
+        try:
+            self.mainBoard()
+        except Exception as e:
+            print(e)
     
     
