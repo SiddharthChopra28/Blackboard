@@ -14,8 +14,9 @@ WHITE = (255, 255, 255)
 
 
 def resource_path(relative_path):
-    base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
-    return os.path.join(base_path, relative_path)
+    #base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+    #return os.path.join(base_path, relative_path)
+    return relative_path
 
 
 
@@ -486,12 +487,6 @@ class Blackboard():
                                     self.mouse_down = True
 
 
-                                
-                            elif (self.change_bg_color_red_box or self.change_bg_color_white_box or self.change_bg_color_yellow_box or self.change_bg_color_black_box):
-                                if not self.right_click_undo_box_border.collidepoint(self.mouse) and not self.right_click_change_pen_color_box_border.collidepoint(self.mouse) and not self.right_click_change_bg_color_box_border.collidepoint(self.mouse) and not self.right_click_clear_box_border.collidepoint(self.mouse) and not self.right_click_help_box_border.collidepoint(self.mouse) and not self.change_bg_color_red_box.collidepoint(self.mouse) and not self.change_bg_color_white_box.collidepoint(self.mouse) and not self.change_bg_color_yellow_box.collidepoint(self.mouse) and not self.change_bg_color_black_box.collidepoint(self.mouse):
-                                    self.redraw_text()
-                                    self.right_click_box = None
-                                    self.mouse_down = True
 
                             else:
                                 if not self.right_click_undo_box_border.collidepoint(self.mouse) and not self.right_click_change_pen_color_box_border.collidepoint(self.mouse) and not self.right_click_change_bg_color_box_border.collidepoint(self.mouse) and not self.right_click_clear_box_border.collidepoint(self.mouse) and not self.right_click_help_box_border.collidepoint(self.mouse):
@@ -517,6 +512,7 @@ class Blackboard():
                                 if not (self.right_click_undo_box.collidepoint(self.mouse) or self.right_click_change_pen_color_box.collidepoint(self.mouse) or self.right_click_change_bg_color_box.collidepoint(self.mouse) or self.right_click_clear_box.collidepoint(self.mouse) or self.right_click_help_box.collidepoint(self.mouse) or self.change_fg_color_red_box.collidepoint(self.mouse) or self.change_fg_color_white_box.collidepoint(self.mouse) or self.change_fg_color_yellow_box.collidepoint(self.mouse) or self.change_fg_color_black_box.collidepoint(self.mouse)):
                                     self.mouse_down = False
                                     self.release_points[(self.mouse)] = None
+                                    self.redraw_text()
 
                                 elif self.change_fg_color_red_box.collidepoint(self.mouse):
                                     self.change_pen_color(RED)
@@ -556,98 +552,91 @@ class Blackboard():
                                     self.drawing = dict.fromkeys([])
                                     self.release_points = dict.fromkeys([])
                                     self.right_click_pos = None
+                                    
+                                    self.right_click_box = None
+                                    
+                                    self.right_click_undo_box = None
+                                    self.right_click_change_pen_color_box = None
+                                    self.right_click_change_bg_color_box = None
+                                    self.right_click_clear_box = None
+                                    self.right_click_help_box = None
+                            
+                                    self.right_click_undo_box_border = None
+                                    self.right_click_change_pen_color_box_border = None
+                                    self.right_click_change_bg_color_box_border = None
+                                    self.right_click_clear_box_border = None
+                                    self.right_click_help_box_border = None
+                            
+                                    self.right_click_undo_text = None
+                                    self.right_click_change_pen_color_text = None
+                                    self.right_click_change_bg_color_text = None
+                                    self.right_click_clear_text = None
+                                    self.right_click_help_text = None
+                                    
+                                    self.redraw_text()
+    
 
 
                                 elif self.right_click_help_box_border.collidepoint(self.mouse):
                                     self.help = True
 
-                                elif not self.right_click_undo_box_border.collidepoint(self.mouse) and not self.right_click_change_pen_color_box_border.collidepoint(self.mouse) and not self.right_click_change_bg_color_box_border.collidepoint(self.mouse) and not self.right_click_clear_box_border.collidepoint(self.mouse) and not self.right_click_help_box_border.collidepoint(self.mouse) and not self.change_fg_color_red_box.collidepoint(self.mouse) and not self.change_fg_color_white_box.collidepoint(self.mouse) and not self.change_fg_color_yellow_box.collidepoint(self.mouse) and not self.change_fg_color_black_box.collidepoint(self.mouse):
-                                    self.redraw_text()
-                                    self.right_click_box = None
-                                    self.mouse_down = True
 
                                 
                             else:
-                                if (self.change_bg_color_red_box or self.change_bg_color_white_box or self.change_bg_color_yellow_box or self.change_bg_color_black_box):                            
-                                    if not self.right_click_undo_box_border.collidepoint(self.mouse) and not self.right_click_change_pen_color_box_border.collidepoint(self.mouse) and not self.right_click_change_bg_color_box_border.collidepoint(self.mouse) and not self.right_click_clear_box_border.collidepoint(self.mouse) and not self.right_click_help_box_border.collidepoint(self.mouse) and not self.change_bg_color_red_box.collidepoint(self.mouse) and not self.change_bg_color_white_box.collidepoint(self.mouse) and not self.change_bg_color_yellow_box.collidepoint(self.mouse) and not self.change_bg_color_black_box.collidepoint(self.mouse):
-                                        self.mouse_down = False
-                                        self.release_points[(self.mouse)] = None
 
-                                    elif self.change_bg_color_red_box.collidepoint(self.mouse):
-                                        self.change_bg_color(RED)
+                                if not (self.right_click_undo_box.collidepoint(self.mouse) or self.right_click_change_pen_color_box.collidepoint(self.mouse) or self.right_click_change_bg_color_box.collidepoint(self.mouse) or self.right_click_clear_box.collidepoint(self.mouse) or self.right_click_help_box.collidepoint(self.mouse)):
+                                    self.mouse_down = False
+                                    self.release_points[(self.mouse)] = None
 
-                                    elif self.change_bg_color_white_box.collidepoint(self.mouse):
-                                        self.change_bg_color(WHITE)
-
-                                    elif self.change_bg_color_yellow_box.collidepoint(self.mouse):
-                                        self.change_bg_color(YELLOW)
-
-                                    elif self.change_bg_color_black_box.collidepoint(self.mouse):
-                                        self.change_bg_color(GREY)
-
-                                    elif self.right_click_undo_box_border.collidepoint(self.mouse):
-                                        self.undo()
-                                        self.right_click_box = None
-
-                                        
-                                    elif self.right_click_change_pen_color_box_border.collidepoint(self.mouse):
-                                        self.show_change_fg_color_box(
-                                            self.right_click_change_pen_color_box_border.x,
-                                            self.right_click_change_pen_color_box_border.y
-                                        )
+                                elif self.right_click_undo_box_border.collidepoint(self.mouse):
+                                    self.undo()
+                                    self.right_click_box = None
 
                                     
+                                elif self.right_click_change_pen_color_box_border.collidepoint(self.mouse):
+                                    self.show_change_fg_color_box(
+                                        self.right_click_change_pen_color_box_border.x,
+                                        self.right_click_change_pen_color_box_border.y
+                                    )
 
-                                    elif self.right_click_change_bg_color_box_border.collidepoint(self.mouse):
-                                        self.show_change_bg_color_box(
-                                            self.right_click_change_bg_color_box.x,
-                                            self.right_click_change_bg_color_box.y
+                                
 
-                                        )
+                                elif self.right_click_change_bg_color_box_border.collidepoint(self.mouse):
+                                    self.show_change_bg_color_box(
+                                        self.right_click_change_bg_color_box.x,
+                                        self.right_click_change_bg_color_box.y
 
-                                    elif self.right_click_clear_box_border.collidepoint(self.mouse):
+                                    )
+
+                                elif self.right_click_clear_box_border.collidepoint(self.mouse):
                                         self.gameWindow.fill(self.bgcolor)
                                         self.drawing = dict.fromkeys([])
                                         self.release_points = dict.fromkeys([])
                                         self.right_click_pos = None
-
-
-                                    elif self.right_click_help_box_border.collidepoint(self.mouse):
-                                        self.help = True
-
-                                else:
-                                    if not (self.right_click_undo_box.collidepoint(self.mouse) or self.right_click_change_pen_color_box.collidepoint(self.mouse) or self.right_click_change_bg_color_box.collidepoint(self.mouse) or self.right_click_clear_box.collidepoint(self.mouse) or self.right_click_help_box.collidepoint(self.mouse)):
-                                        self.mouse_down = False
-                                        self.release_points[(self.mouse)] = None
-
-                                    elif self.right_click_undo_box_border.collidepoint(self.mouse):
-                                        self.undo()
-                                        self.right_click_box = None
-
                                         
-                                    elif self.right_click_change_pen_color_box_border.collidepoint(self.mouse):
-                                        self.show_change_fg_color_box(
-                                            self.right_click_change_pen_color_box_border.x,
-                                            self.right_click_change_pen_color_box_border.y
-                                        )
-
-                                    
-
-                                    elif self.right_click_change_bg_color_box_border.collidepoint(self.mouse):
-                                        self.show_change_bg_color_box(
-                                            self.right_click_change_bg_color_box.x,
-                                            self.right_click_change_bg_color_box.y
-
-                                        )
-
-                                    elif self.right_click_clear_box_border.collidepoint(self.mouse):
-                                        self.gameWindow.fill(self.bgcolor)
-                                        self.drawing = dict.fromkeys([])
-                                        self.release_points = dict.fromkeys([])
-                                        self.right_click_pos = None
-
-                                    elif self.right_click_help_box_border.collidepoint(self.mouse):
-                                        self.help = True
+                                        self.right_click_box = None
+                                        
+                                        self.right_click_undo_box = None
+                                        self.right_click_change_pen_color_box = None
+                                        self.right_click_change_bg_color_box = None
+                                        self.right_click_clear_box = None
+                                        self.right_click_help_box = None
+                                
+                                        self.right_click_undo_box_border = None
+                                        self.right_click_change_pen_color_box_border = None
+                                        self.right_click_change_bg_color_box_border = None
+                                        self.right_click_clear_box_border = None
+                                        self.right_click_help_box_border = None
+                                
+                                        self.right_click_undo_text = None
+                                        self.right_click_change_pen_color_text = None
+                                        self.right_click_change_bg_color_text = None
+                                        self.right_click_clear_text = None
+                                        self.right_click_help_text = None
+                                        
+                                        self.redraw_text()
+                                elif self.right_click_help_box_border.collidepoint(self.mouse):
+                                    self.help = True
 
                         else:
                             self.mouse_down = False
@@ -672,6 +661,24 @@ class Blackboard():
                 self.gameWindow.fill(self.bgcolor)
                 self.drawing = dict.fromkeys([])
                 self.release_points = dict.fromkeys([])
+                self.right_click_undo_box = None
+                self.right_click_change_pen_color_box = None
+                self.right_click_change_bg_color_box = None
+                self.right_click_clear_box = None
+                self.right_click_help_box = None
+        
+                self.right_click_undo_box_border = None
+                self.right_click_change_pen_color_box_border = None
+                self.right_click_change_bg_color_box_border = None
+                self.right_click_clear_box_border = None
+                self.right_click_help_box_border = None
+        
+                self.right_click_undo_text = None
+                self.right_click_change_pen_color_text = None
+                self.right_click_change_bg_color_text = None
+                self.right_click_clear_text = None
+                self.right_click_help_text = None
+
             if self.ctrl_pressed and self.letter_key == pygame.K_z:
                 self.undo()
             if self.ctrl_pressed and self.letter_key == pygame.K_e:
@@ -801,9 +808,9 @@ class Blackboard():
 
 
     def run(self):
-        try:
-            self.mainBoard()
-        except Exception as e:
-            print(e)
+        #try:
+        self.mainBoard()
+        #except Exception as e:
+            #print(e)
     
     
